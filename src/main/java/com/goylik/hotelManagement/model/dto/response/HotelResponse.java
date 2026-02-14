@@ -1,11 +1,10 @@
 package com.goylik.hotelManagement.model.dto.response;
 
 import com.goylik.hotelManagement.model.dto.AddressDto;
-import com.goylik.hotelManagement.model.dto.AmenityDto;
 import com.goylik.hotelManagement.model.dto.ArrivalTimeDto;
 import com.goylik.hotelManagement.model.dto.ContactsDto;
 
-import java.util.List;
+import java.util.Set;
 
 public record HotelResponse(
         Long id,
@@ -15,6 +14,6 @@ public record HotelResponse(
         AddressDto address,
         ContactsDto contacts,
         ArrivalTimeDto arrivalTime,
-        List<AmenityDto> amenities
+        Set<String> amenities
 ) {
 }
