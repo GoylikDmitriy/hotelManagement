@@ -1,12 +1,12 @@
 package com.goylik.hotelManagement.model.entity;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "amenities")
@@ -16,11 +16,17 @@ public class Amenity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
 
     @ManyToMany(mappedBy = "amenities")
-    private List<Hotel> hotels;
+    private Set<Hotel> hotels = new HashSet<>();
+
+    protected Amenity() {}
+
+    public Amenity(String name) {
+        this.name = name;
+    }
 
     @Override
     public String toString() {

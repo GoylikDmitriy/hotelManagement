@@ -7,8 +7,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "hotels")
@@ -35,13 +36,23 @@ public class Hotel {
     @Embedded
     private ArrivalTime arrivalTime;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "hotel_amenity",
             joinColumns = @JoinColumn(name = "hotel_id"),
             inverseJoinColumns = @JoinColumn(name = "amenity_id")
     )
-    private List<Amenity> amenities;
+    private Set<Amenity> amenities = new HashSet<>();
+
+    public void addAmenity(Amenity amenity) {
+        amenities.add(amenity);
+        amenity.getHotels().add(this);
+    }
+
+    public void removeAmenity(Amenity amenity) {
+        amenities.remove(amenity);
+        amenity.getHotels().remove(this);
+    }
 
     @Override
     public String toString() {

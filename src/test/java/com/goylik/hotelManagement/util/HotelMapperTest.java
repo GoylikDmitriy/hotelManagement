@@ -18,8 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,7 +33,7 @@ class HotelMapperTest {
     private Address address;
     private Contacts contacts;
     private ArrivalTime arrivalTime;
-    private List<Amenity> amenities;
+    private Set<Amenity> amenities;
 
     @BeforeEach
     void setUp() {
@@ -53,15 +52,13 @@ class HotelMapperTest {
         arrivalTime.setCheckIn(LocalTime.of(14, 0));
         arrivalTime.setCheckOut(LocalTime.of(12, 0));
 
-        Amenity wifi = new Amenity();
+        Amenity wifi = new Amenity("Free WiFi");
         wifi.setId(1L);
-        wifi.setName("Free WiFi");
 
-        Amenity parking = new Amenity();
+        Amenity parking = new Amenity("Free parking");
         parking.setId(2L);
-        parking.setName("Free parking");
 
-        amenities = Arrays.asList(wifi, parking);
+        amenities = Set.of(wifi, parking);
 
         createRequest = new CreateHotelRequest(
                 "DoubleTree by Hilton Minsk",
@@ -119,7 +116,7 @@ class HotelMapperTest {
         assertEquals(createRequest.arrivalTime().checkIn(), result.getArrivalTime().getCheckIn());
         assertEquals(createRequest.arrivalTime().checkOut(), result.getArrivalTime().getCheckOut());
 
-        assertNull(result.getAmenities());
+        assertTrue(result.getAmenities().isEmpty());
     }
 
     @Test
@@ -192,8 +189,8 @@ class HotelMapperTest {
 
         assertNotNull(result.amenities());
         assertEquals(2, result.amenities().size());
-        assertEquals("Free WiFi", result.amenities().get(0).name());
-        assertEquals("Free parking", result.amenities().get(1).name());
+        assertTrue(result.amenities().contains("Free WiFi"));
+        assertTrue(result.amenities().contains("Free parking"));
     }
 
     @Test
@@ -211,12 +208,12 @@ class HotelMapperTest {
         assertNull(result.address());
         assertNull(result.contacts());
         assertNull(result.arrivalTime());
-        assertNull(result.amenities());
+        assertTrue(result.amenities().isEmpty());
     }
 
     @Test
     void toResponse_ShouldWorkWithEmptyAmenities() {
-        hotel.setAmenities(List.of());
+        hotel.setAmenities(Set.of());
 
         HotelResponse result = hotelMapper.toResponse(hotel);
 
