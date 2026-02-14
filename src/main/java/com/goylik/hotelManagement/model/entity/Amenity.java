@@ -16,6 +16,7 @@ public class Amenity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "name", nullable = false)
     private String name;
 
     @ManyToMany(mappedBy = "amenities")

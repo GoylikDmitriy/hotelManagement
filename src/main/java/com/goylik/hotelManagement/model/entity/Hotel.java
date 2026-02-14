@@ -18,8 +18,12 @@ public class Hotel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "name", nullable = false)
     private String name;
+    @Lob
+    @Column(name = "description")
     private String description;
+    @Column(name = "brand", nullable = false)
     private String brand;
 
     @Embedded
