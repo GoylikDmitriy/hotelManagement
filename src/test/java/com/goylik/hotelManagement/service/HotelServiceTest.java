@@ -1,5 +1,6 @@
 package com.goylik.hotelManagement.service;
 
+import com.goylik.hotelManagement.exception.HotelNotFoundException;
 import com.goylik.hotelManagement.model.dto.AddressDto;
 import com.goylik.hotelManagement.model.dto.ArrivalTimeDto;
 import com.goylik.hotelManagement.model.dto.ContactsDto;
@@ -10,7 +11,6 @@ import com.goylik.hotelManagement.model.entity.Amenity;
 import com.goylik.hotelManagement.model.entity.Hotel;
 import com.goylik.hotelManagement.repository.AmenityRepository;
 import com.goylik.hotelManagement.repository.HotelRepository;
-import com.goylik.hotelManagement.exception.HotelNotFoundException;
 import com.goylik.hotelManagement.service.impl.HotelServiceImpl;
 import com.goylik.hotelManagement.util.mapper.HotelMapper;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalTime;
 import java.util.List;

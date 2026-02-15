@@ -66,14 +66,13 @@ public class Hotel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Hotel hotel = (Hotel) o;
-        return id == hotel.id &&
-                Objects.equals(name, hotel.name) &&
+        return Objects.equals(name, hotel.name) &&
                 Objects.equals(brand, hotel.brand) &&
                 Objects.equals(address, hotel.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, brand, address);
+        return Objects.hash(name, brand, address);
     }
 }
