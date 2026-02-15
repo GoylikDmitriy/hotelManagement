@@ -1,13 +1,13 @@
 package com.goylik.hotelManagement.repository;
 
+import com.goylik.hotelManagement.model.entity.Hotel;
 import com.goylik.hotelManagement.repository.projection.HistogramEntry;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.Repository;
 
 import java.util.List;
 
-@Repository
-public interface HotelHistogramRepository {
+public interface HotelHistogramRepository extends Repository<Hotel, Long> {
     @Query("""
             select h.brand as key, count(h) as count
             from Hotel h
