@@ -2,7 +2,7 @@ package com.goylik.hotelManagement.service;
 
 import com.goylik.hotelManagement.exception.UnsupportedHistogramParamException;
 import com.goylik.hotelManagement.repository.projection.HistogramEntry;
-import com.goylik.hotelManagement.service.impl.HistogramServiceImpl;
+import com.goylik.hotelManagement.service.impl.HotelHistogramServiceImpl;
 import com.goylik.hotelManagement.service.strategy.HistogramStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class HistogramServiceTest {
+class HotelHistogramServiceTest {
     @Mock
     private HistogramStrategy amenitiesStrategy;
     @Mock
@@ -28,7 +28,7 @@ class HistogramServiceTest {
     @Mock
     private HistogramStrategy countryStrategy;
 
-    private HistogramServiceImpl histogramService;
+    private HotelHistogramServiceImpl histogramService;
 
     @BeforeEach
     void setUp() {
@@ -39,7 +39,7 @@ class HistogramServiceTest {
                 "country", countryStrategy
         );
 
-        histogramService = new HistogramServiceImpl(strategies);
+        histogramService = new HotelHistogramServiceImpl(strategies);
     }
 
     @Test
