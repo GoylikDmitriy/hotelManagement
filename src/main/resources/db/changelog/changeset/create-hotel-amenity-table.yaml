@@ -2,6 +2,16 @@ databaseChangeLog:
   - changeSet:
       id: create-hotel-amenity-table
       author: goylik
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: hotel_amenity
+        - and:
+            - tableExists:
+                tableName: hotels
+            - tableExists:
+                tableName: amenities
       changes:
         - createTable:
             tableName: hotel_amenity
@@ -38,3 +48,17 @@ databaseChangeLog:
             referencedColumnNames: id
             constraintName: fk_hotel_amenity_amenity
             onDelete: CASCADE
+
+        - createIndex:
+            tableName: hotel_amenity
+            indexName: idx_hotel_amenity_hotel
+            columns:
+              - column:
+                  name: hotel_id
+
+        - createIndex:
+            tableName: hotel_amenity
+            indexName: idx_hotel_amenity_amenity
+            columns:
+              - column:
+                  name: amenity_id

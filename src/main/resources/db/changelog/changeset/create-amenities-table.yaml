@@ -2,6 +2,11 @@ databaseChangeLog:
   - changeSet:
       id: create-amenities-table
       author: goylik
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: amenities
       changes:
         - createTable:
             tableName: amenities
