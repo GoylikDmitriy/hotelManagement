@@ -1,5 +1,6 @@
 package com.goylik.hotelManagement.service.impl;
 
+import com.goylik.hotelManagement.exception.HotelNotFoundException;
 import com.goylik.hotelManagement.model.dto.request.CreateHotelRequest;
 import com.goylik.hotelManagement.model.dto.response.HotelResponse;
 import com.goylik.hotelManagement.model.dto.response.HotelShortResponse;
@@ -8,14 +9,11 @@ import com.goylik.hotelManagement.model.entity.Hotel;
 import com.goylik.hotelManagement.repository.AmenityRepository;
 import com.goylik.hotelManagement.repository.HotelRepository;
 import com.goylik.hotelManagement.service.HotelService;
-import com.goylik.hotelManagement.exception.HotelNotFoundException;
 import com.goylik.hotelManagement.util.mapper.HotelMapper;
-import com.goylik.hotelManagement.util.specification.HotelSpecifications;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -40,15 +38,6 @@ public class HotelServiceImpl implements HotelService {
         return hotels.stream()
                 .map(hotelMapper::toShortResponse)
                 .toList();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<HotelShortResponse> search(String name, String brand, String city,
-                                           String country, Collection<String> amenities) {
-        var specs = HotelSpecifications.buildSpecification(name, brand, city, country, amenities);
-        var hotelsWithSpecs = hotelRepository.findAll(specs);
-        return mapToShortResponse(hotelsWithSpecs);
     }
 
     @Override

@@ -60,32 +60,6 @@ class HotelServiceTest {
     }
 
     @Test
-    void search_ShouldReturnMappedShortResponses() {
-        Hotel hotel = new Hotel();
-        List<Hotel> hotels = List.of(hotel);
-
-        HotelShortResponse shortResponse = new HotelShortResponse(
-                2L, "Hotel B", "Desc B", "456 Elm St", "+987654321"
-        );
-
-        when(hotelRepository.findAll(any(Specification.class)))
-                .thenReturn(hotels);
-
-        when(hotelMapper.toShortResponse(hotel)).thenReturn(shortResponse);
-
-        List<HotelShortResponse> result = hotelService.search(
-                "name", "brand", "city", "country", List.of("WiFi")
-        );
-
-        assertEquals(1, result.size());
-        assertEquals(shortResponse, result.getFirst());
-
-        verify(hotelRepository).findAll(any(Specification.class));
-        verify(hotelMapper).toShortResponse(hotel);
-    }
-
-
-    @Test
     void getById_ShouldReturnHotelResponse() {
         Hotel hotel = new Hotel();
         HotelResponse response = new HotelResponse(
