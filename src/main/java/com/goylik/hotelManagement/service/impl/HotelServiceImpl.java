@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -64,15 +65,19 @@ public class HotelServiceImpl implements HotelService {
     @Transactional
     public void addAllAmenities(Long id, Set<String> amenities) {
         var hotel = fetchByIdWithAmenitiesOrThrow(id);
+        var amenitiesToAdd = collectAmenitiesToAdd(amenities);
 
-        var existingByName = findExistingAmenitiesAndCollectToMap(amenities);
+        hotel.addAllAmenities(amenitiesToAdd);
+    }
 
-        existingByName.values().forEach(hotel::addAmenity);
-
-        amenities.stream()
-                .filter(name -> !existingByName.containsKey(name.toLowerCase()))
-                .map(Amenity::new)
-                .forEach(hotel::addAmenity);
+    private Set<Amenity> collectAmenitiesToAdd(Set<String> amenityNames) {
+        var existingByName = findExistingAmenitiesAndCollectToMap(amenityNames);
+        return Stream.concat(
+                        existingByName.values().stream(),
+                        amenityNames.stream()
+                                .filter(name -> !existingByName.containsKey(name.toLowerCase()))
+                                .map(Amenity::new))
+                .collect(Collectors.toSet());
     }
 
     private Map<String, Amenity> findExistingAmenitiesAndCollectToMap(Set<String> amenityNames) {

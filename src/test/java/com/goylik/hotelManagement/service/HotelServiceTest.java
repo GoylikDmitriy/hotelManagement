@@ -127,10 +127,10 @@ class HotelServiceTest {
 
         hotelService.addAllAmenities(1L, inputAmenities);
 
-        ArgumentCaptor<Amenity> captor = ArgumentCaptor.forClass(Amenity.class);
-        verify(hotel, times(2)).addAmenity(captor.capture());
+        ArgumentCaptor<Set<Amenity>> captor = ArgumentCaptor.forClass(Set.class);
+        verify(hotel, times(1)).addAllAmenities(captor.capture());
 
-        List<Amenity> added = captor.getAllValues();
+        Set<Amenity> added = captor.getValue();
         assertTrue(added.stream().anyMatch(a -> a.getName().equals("Free WiFi")));
         assertTrue(added.stream().anyMatch(a -> a.getName().equals("Parking")));
     }

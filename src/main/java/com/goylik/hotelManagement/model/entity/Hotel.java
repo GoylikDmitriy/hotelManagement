@@ -44,14 +44,8 @@ public class Hotel {
     )
     private Set<Amenity> amenities = new HashSet<>();
 
-    public void addAmenity(Amenity amenity) {
-        amenities.add(amenity);
-        amenity.getHotels().add(this);
-    }
-
-    public void removeAmenity(Amenity amenity) {
-        amenities.remove(amenity);
-        amenity.getHotels().remove(this);
+    public void addAllAmenities(Set<Amenity> amenities) {
+        this.amenities.addAll(amenities);
     }
 
     @Override

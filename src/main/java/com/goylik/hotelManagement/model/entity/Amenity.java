@@ -38,14 +38,13 @@ public class Amenity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Amenity amenity = (Amenity) o;
-        return id == amenity.id;
+        return Objects.equals(name, amenity.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(name);
     }
 }
