@@ -3,9 +3,6 @@ spring:
     name: hotelManagement
   datasource:
     url: jdbc:h2:mem:hotel_management;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
-  h2-console:
-    enabled: true
-    path: /h2-console
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
