@@ -14,19 +14,16 @@ import com.goylik.hotelManagement.model.entity.embedded.Contacts;
 import com.goylik.hotelManagement.util.mapper.HotelMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mapstruct.factory.Mappers;
 
 import java.time.LocalTime;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
 class HotelMapperTest {
 
-    @Autowired
-    private HotelMapper hotelMapper;
+    private HotelMapper hotelMapper = Mappers.getMapper(HotelMapper.class);;
 
     private CreateHotelRequest createRequest;
     private Hotel hotel;

@@ -1,5 +1,8 @@
 package com.goylik.hotelManagement.controller;
 
+import com.goylik.hotelManagement.model.dto.AddressDto;
+import com.goylik.hotelManagement.model.dto.ArrivalTimeDto;
+import com.goylik.hotelManagement.model.dto.ContactsDto;
 import com.goylik.hotelManagement.model.dto.request.CreateHotelRequest;
 import com.goylik.hotelManagement.model.dto.response.HotelResponse;
 import com.goylik.hotelManagement.model.dto.response.HotelShortResponse;
@@ -12,6 +15,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import tools.jackson.databind.ObjectMapper;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 
@@ -72,13 +76,17 @@ class HotelControllerTest {
 
     @Test
     void createHotel_shouldReturn201() throws Exception {
+        AddressDto addressDto = new AddressDto("9", "Pobedy st.",
+                "Minsk", "Belarus", "214124");
+        ContactsDto contactsDto = new ContactsDto("+375285124051", "email@mail.com");
+        ArrivalTimeDto arrivalTimeDto = new ArrivalTimeDto(LocalTime.of(12, 0), null);
         CreateHotelRequest request = new CreateHotelRequest(
                 "Hotel",
                 "Desc",
                 "Hilton",
-                null,
-                null,
-                null
+                addressDto,
+                contactsDto,
+                arrivalTimeDto
         );
 
         HotelShortResponse response =
